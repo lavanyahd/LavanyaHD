@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Progress</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .language-selector {
+            margin-bottom: 15px;
+            text-align: left;
+            width: 180px;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://cdn.vectorstock.com/i/500p/28/28/blue-and-white-gradient-background-light-abstract-vector-48842828.jpg'); /* Updated image path */
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            margin: 0;
+            color: #333;
+        }
+
+
+        /* Hide Google Translate elements */
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+
+        .goog-te-gadget-icon, .goog-logo-link, iframe {
+            display: none !important;
+        }
+
+        .notranslate {
+            translate: no !important;
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        // Initialize Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,te,hi,kn,fr,es',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Function to translate the page
+        function translatePage(language) {
+            if (!language) return;
+
+            const interval = setInterval(() => {
+                const translateSelect = document.querySelector('.goog-te-combo');
+                if (translateSelect) {
+                    translateSelect.value = language;
+                    translateSelect.dispatchEvent(new Event('change'));
+                    clearInterval(interval);
+                }
+            }, 200);
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <div class="container mt-5">
+        <h1 class="text-center">Progress for Patient ID: {{ patient_id }}</h1>
+
+        <div class="table-responsive mt-4">
+            <table class="table table-bordered table-striped align-middle">
+                <thead class="table-primary text-center">
+                    <tr>
+                        <th scope="col">Date of Evaluation</th>
+                        <th scope="col">Nutritionist ID</th>
+                        <th scope="col">Assessment Plan</th>
+                        <th scope="col">Dietitian Note</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for result in results %}
+                    <tr>
+                        <td class="text-center">{{ result.date_of_evaluation or 'N/A' }}</td>
+                        <td class="text-center">{{ result.nutri_id or 'N/A' }}</td>
+                        <td>{{ result.assessment_plan or 'N/A' }}</td>
+                        <td>{{ result.dietitian_note or 'N/A' }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-4">
+            <form action="{{ url_for('homepage') }}" method="get">
+                <button type="submit" class="btn btn-primary">Go to Home</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+</html>
