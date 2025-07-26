@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Patient Report</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('https://t3.ftcdn.net/jpg/02/89/60/96/360_F_289609649_SayyqhWUJoVj3roYfRty2sWYEipZ2n0L.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .goog-te-banner-frame {
+            display: none !important;
+        }
+
+        .goog-te-gadget-icon, .goog-logo-link, iframe {
+            display: none !important;
+        }
+
+        .notranslate {
+            translate: no !important;
+        }
+        .container {
+            max-width: 600px; /* Reduced the width for a smaller appearance */
+            width: 90%;
+            background-color: #f8f9fa;
+            padding: 20px; /* Reduced padding */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            margin: 10px;
+            text-align: left;
+            border-top: 5px solid #007bff;
+            
+        }
+
+        h1 {
+            font-size: 28px; /* Reduced font size */
+            margin-bottom: 10px;
+            color: black;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 18px; /* Reduced font size */
+            margin-bottom: 20px;
+            color: #444;
+            text-align: center;
+        }
+
+        .report-table {
+            width: 100%;
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+
+        .report-table td {
+            padding: 10px 15px; /* Reduced padding */
+            border-bottom: 1px solid #ddd;
+            vertical-align: top;
+            font-size: 14px; /* Reduced font size */
+            color: #555;
+        }
+
+        .report-table .field {
+            font-weight: bold;
+            width: 40%;
+            background-color: #f8f9fa;
+            color: black;
+        }
+
+        .report-table .value {
+            width: 60%;
+            background-color: #fff;
+            color: #333;
+        }
+
+        .footer {
+            font-size: 12px; /* Reduced font size */
+            color: #666;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .buttons {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn {
+            padding: 10px 20px; /* Reduced padding */
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px; /* Reduced font size */
+            transition: background-color 0.3s;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        /* Responsive design */
+        @media screen and (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+
+            h2 {
+                font-size: 16px;
+            }
+
+            .report-table td {
+                font-size: 12px;
+            }
+
+            .btn {
+                padding: 8px 15px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <script type="text/javascript">
+        // Initialize Google Translate
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'en',
+                includedLanguages: 'en,te,hi,kn,fr,es',
+                autoDisplay: false
+            }, 'google_translate_element');
+        }
+
+        // Function to translate the page
+        function translatePage(language) {
+            if (!language) return;
+
+            const interval = setInterval(() => {
+                const translateSelect = document.querySelector('.goog-te-combo');
+                if (translateSelect) {
+                    translateSelect.value = language;
+                    translateSelect.dispatchEvent(new Event('change'));
+                    clearInterval(interval);
+                }
+            }, 200);
+        }
+    </script>
+    <script src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <div class="container">
+        <h1>Patient Report</h1>
+        <h2>Report ID: {{ report_data['re_id'] - 1 }}</h2>
+
+        <table class="report-table">
+            <tr>
+                <td class="field">Patient Name</td>
+                <td class="value">{{ report_data['name'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Date of Evaluation</td>
+                <td class="value">{{ report_data['date_of_evaluation'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Lifestyle</td>
+                <td class="value">{{ report_data['lifestyle'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Medical Diagnosis</td>
+                <td class="value">{{ report_data['medical_diagnosis'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Nutritionist ID</td>
+                <td class="value">{{ report_data['nutri_id'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Height</td>
+                <td class="value">{{ report_data['height'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Weight</td>
+                <td class="value">{{ report_data['weight'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">BMI</td>
+                <td class="value">{{ report_data['bmi'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Smoking</td>
+                <td class="value">{{ report_data['smoking'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Alcohol</td>
+                <td class="value">{{ report_data['alcohol'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Physical Activity</td>
+                <td class="value">{{ report_data['physical_activity'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Time Using Technology</td>
+                <td class="value">{{ report_data['time_using_technology'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Drinking Water Intake</td>
+                <td class="value">{{ report_data['drinking_water_intake'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Assessment Plan</td>
+                <td class="value">{{ report_data['assessment_plan'] }}</td>
+            </tr>
+            <tr>
+                <td class="field">Dietitian Note</td>
+                <td class="value">{{ report_data['dietitian_note'] }}</td>
+            </tr>
+        </table>
+
+        <div class="footer">
+            <p>&copy; Multilingual Obesity Predictor (2024-25)</p>
+        </div>
+
+        <div class="buttons">
+            <a href="{{ url_for('homepage') }}" class="btn">Go to Home</a>
+        </div>
+    </div>
+</body>
+</html>
